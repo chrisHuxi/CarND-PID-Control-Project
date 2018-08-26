@@ -2,6 +2,34 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+## Reflection
+
+*  ###  explanation about P, I, D:
+   * P: P stands for "proportional", p_error means the error depending on the cross track error, which is the measurement of distance between car and planned track. It is basic component,but if we only use this component, our car will always oscillate around the track as following image:
+   ![](https://github.com/chrisHuxi/CarND-PID-Control-Project/blob/master/image/p.PNG)
+   * I: I stands for "integral", i_error means we record the sum of all the previous cross track error, it could be used to solve systematic bias problem: assuming our car has a steering drift, without this component, our car track will look like following image:
+   ![](https://github.com/chrisHuxi/CarND-PID-Control-Project/blob/master/image/i1.PNG)
+and after using i component, result looks like following image:
+   ![](https://github.com/chrisHuxi/CarND-PID-Control-Project/blob/master/image/i2.PNG)
+   * D: D stands for "differential", d_error means how fast the cross track error changes. Because we don't want our car to oscillate, so we can make the steering angle samller when we find the cross track error changes very fast. with this component we can get a more steadily runing track like following image:
+   ![](https://github.com/chrisHuxi/CarND-PID-Control-Project/blob/master/image/d.PNG)
+   
+   
+*  ###  how to choose hyperparameters:
+   * basically I choose them through manual tuning.
+   * but there is also a work flow with [reference](http://smithcsrobot.weebly.com/uploads/6/0/9/5/60954939/pid_control_document.pdf):
+   
+   >1. Set Kp, Ki, and Kd to 0. This will disable them for now.
+   >2. Increase Kp until the error is fairly small, but it still gets from the beginning to nearly
+    the end quickly enough.
+   >3. Increase Kd until any overshoot you may have is fairly minimal. But be careful with
+    Kd – too much will make it overshoot.
+   >4. Increase Ki until any error that is still existing is eliminated. Start with a really small
+    number for Ki, don't be surprised if it is as small as 0.0001 or even smaller.
+   >5. Change around the constants a little bit to get it working to the best performance.
+   
+   * as a result, I choose  **Kp,Ki,Kd = (0.3,0.0001 ,2.7)** , and actually we can set Ki to 0.0, because we don't set steering drift in our simulator. Besides I set the speed to 20 to make sure the car work forward steadily.
+   * and I am very curious how to use twiddle or SGD to get these parameters. Please give me some hints.
 
 ## Dependencies
 
